@@ -5,18 +5,18 @@
 
 class FileSystem {
 public:
-  virtual std::string read_file(std::string &path) = 0;
+  virtual std::string readFile(std::string &path) = 0;
 };
 
 class Console {
 public:
-  virtual std::vector<std::string> sys_args() = 0;
-  virtual void write_stdout(const char *) = 0;
+  virtual std::vector<std::string> sysArgs() = 0;
+  virtual void writeStdout(const char *) = 0;
 };
 
 class Clock {
 public:
-  virtual double get_current_time() = 0;
+  virtual double getCurrentTime() = 0;
 };
 
 class Configuration {
@@ -26,7 +26,7 @@ public:
 
 class Exit {
 public:
-  virtual void error_exit(std::string &msg) = 0;
+  virtual void errorExit(std::string &msg) = 0;
 };
 
 class Greeter {
@@ -42,10 +42,10 @@ public:
 // Impl
 class ConsoleImpl : public Console {
 public:
-  std::vector<std::string> sys_args() {
+  std::vector<std::string> sysArgs() {
     return {};
   }
-  void write_stdout(const char *msg) {
+  void writeStdout(const char *msg) {
     std::cout << msg;
   }
 };
@@ -54,12 +54,12 @@ class TimerImpl : public Timer {
 public:
   TimerImpl(Console &console, Clock &clock) : console_(console), clock_(clock) {}
   void measure(std::function<void()> f) {
-    auto start = clock_.get_current_time();
+    auto start = clock_.getCurrentTime();
     f();
-    auto end = clock_.get_current_time();
-    console_.write_stdout("time: ");
+    auto end = clock_.getCurrentTime();
+    console_.writeStdout("time: ");
     auto diff = end - start;
-    console_.write_stdout("\n");
+    console_.writeStdout("\n");
   }
 private:
   Console &console_;
@@ -70,9 +70,9 @@ class GreeterImpl {
 public:
   GreeterImpl(Console &console) : console_(console) {}
   void greet(std::string &msg) {
-    console_.write_stdout("Hello, ");
-    console_.write_stdout(msg.c_str());
-    console_.write_stdout("!\n");
+    console_.writeStdout("Hello, ");
+    console_.writeStdout(msg.c_str());
+    console_.writeStdout("!\n");
   }
 private:
   Console &console_;
@@ -80,7 +80,7 @@ private:
 
 class ClockImpl : public Clock {
 public:
-  double get_current_time() {
+  double getCurrentTime() {
     return 100;
   }
 };
