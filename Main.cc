@@ -52,30 +52,30 @@ public:
 
 class TimerImpl : public Timer {
 public:
-  TimerImpl(Console &console, Clock &clock) : _console(console), _clock(clock) {}
+  TimerImpl(Console &console, Clock &clock) : console_(console), clock_(clock) {}
   void measure(std::function<void()> f) {
-    auto start = _clock.get_current_time();
+    auto start = clock_.get_current_time();
     f();
-    auto end = _clock.get_current_time();
-    _console.write_stdout("time: ");
+    auto end = clock_.get_current_time();
+    console_.write_stdout("time: ");
     auto diff = end - start;
-    _console.write_stdout("\n");
+    console_.write_stdout("\n");
   }
 private:
-  Console &_console;
-  Clock &_clock;
+  Console &console_;
+  Clock &clock_;
 };
 
 class GreeterImpl {
 public:
-  GreeterImpl(Console &console) : _console(console) {}
+  GreeterImpl(Console &console) : console_(console) {}
   void greet(std::string &msg) {
-    _console.write_stdout("Hello, ");
-    _console.write_stdout(msg.c_str());
-    _console.write_stdout("!\n");
+    console_.write_stdout("Hello, ");
+    console_.write_stdout(msg.c_str());
+    console_.write_stdout("!\n");
   }
 private:
-  Console &_console;
+  Console &console_;
 };
 
 class ClockImpl : public Clock {
