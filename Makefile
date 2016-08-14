@@ -4,5 +4,5 @@ SOURCE += $(wildcard app/*.cc)
 INCLUDE := src
 
 all:
-	mkdir bin
+	mkdir -p bin
 	cc -std=c++14 $(SOURCE) -lstdc++ -I $(INCLUDE) -o bin/hello
