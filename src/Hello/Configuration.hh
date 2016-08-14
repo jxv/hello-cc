@@ -7,7 +7,7 @@ namespace hello {
 
 class Configuration {
 public:
-  virtual std::string target() = 0;
+  virtual std::string getTarget() = 0;
 };
 
 }

@@ -7,8 +7,12 @@ namespace hello {
 
 class ConsoleImpl : public Console {
 public:
-  std::vector<std::string> sysArgs();
+  ConsoleImpl(int argc, const char **argv);
+  std::string sysArg();
   void writeStdout(const char *msg);
+private:
+  int argc_;
+  const char **argv_;
 };
 
 }

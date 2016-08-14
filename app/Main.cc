@@ -1,30 +1,18 @@
-#include <iostream>
-#include <string>
-#include <vector>
-#include <functional>
-
-#include "Hello/FileSystem.hh"
+#include "Hello/FileSystemImpl.hh"
 #include "Hello/ConsoleImpl.hh"
 #include "Hello/ClockImpl.hh"
-#include "Hello/Configuration.hh"
+#include "Hello/ConfigurationImpl.hh"
 #include "Hello/GreeterImpl.hh"
 #include "Hello/TimerImpl.hh"
+#include "Hello/Main.hh"
 
-int main() {
-  // Wiring
-  auto console = hello::ConsoleImpl();
+int main(int argc, const char **argv) {
+  auto console = hello::ConsoleImpl(argc, argv);
+  auto fileSystem = hello::FileSystemImpl();
+  auto configuration = hello::ConfigurationImpl(console, fileSystem);
   auto clock = hello::ClockImpl();
   auto greeter = hello::GreeterImpl(console);
   auto timer = hello::TimerImpl(console, clock);
 
-  try {
-    timer.measure([&greeter] {
-      auto world = std::string("world");
-      greeter.greet(world);
-    });
-  }
-  catch (std::exception &e) {
-    std::cout << e.what();
-  }
-  return 0;
+  return hello::main(timer, greeter, configuration);
 }

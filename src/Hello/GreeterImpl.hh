@@ -6,7 +6,7 @@
 
 namespace hello {
 
-class GreeterImpl {
+class GreeterImpl : public Greeter {
 public:
   GreeterImpl(Console &console);
   void greet(std::string &msg);

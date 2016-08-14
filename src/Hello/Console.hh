@@ -8,7 +8,7 @@ namespace hello {
 
 class Console {
 public:
-  virtual std::vector<std::string> sysArgs() = 0;
+  virtual std::string sysArg() = 0;
   virtual void writeStdout(const char *) = 0;
 };
 
